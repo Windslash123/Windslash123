@@ -29,7 +29,7 @@ int main()
             if (position > highestG) highestG = position;
             gCount++;
         }
-        else {
+        else { 
             L[lCount] = position;
             if (position < lowestL) lowestL = position;
             lCount++;
