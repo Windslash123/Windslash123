@@ -1,0 +1,63 @@
+Problem Description:
+http://www.usaco.org/index.php?page=viewproblem2&cpid=1229
+
+Program:
+
+#include <iostream>
+
+using namespace std;
+
+
+int recipes[101][102] = { 0 };
+
+bool alchemy(int& metal, int a[]) {
+    
+    if (recipes[metal][0] == 0) return 0;
+    
+    bool works = 1;
+    for (int i = 1; i <= recipes[metal][0]; i++) {
+        if (a[recipes[metal][i] - 1] > 0) {
+            a[recipes[metal][i] - 1] -= 1;
+        }
+        else {
+            works = alchemy(recipes[metal][i], a);
+            if (!works) {
+                return 0;
+            }   
+        }
+    
+    }
+    return 1;
+}
+
+int main() {
+    int N, k; 
+    cin >> N;
+    int a[N];
+    for (int i = 0; i < N; i++) cin >> a[i];
+    cin >> k;
+    for (int i = 0; i < k; i++) {
+        int row;
+        cin >> row;
+        cin >> recipes[row][0];
+        for(int j = 1; j <= recipes[row][0]; j++) {
+            cin >> recipes[row][j];
+        }
+    }
+    int max = a[N-1];
+    a[N-1] -= max;
+    
+    bool flag = 1;
+    
+    
+    while (flag) {
+            flag = alchemy(N, a);
+            if (!flag) {
+                cout << max;
+                return 0;
+            }
+        max++;
+    }
+    
+    return 0;
+}
