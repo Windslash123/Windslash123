@@ -1,0 +1,67 @@
+Problem Description:
+http://www.usaco.org/index.php?page=viewproblem2&cpid=1228
+
+Program:
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main()
+{
+    int N;
+    cin >> N;
+    int G[1000] = { 0 };
+    int L[1000] = { 0 };
+    
+    int lowestL = 1000000005;
+    int highestG = -1;
+    int gCount = 0, lCount = 0;
+    for (int i = 0; i < N; i++) {
+        char letter;
+        int position;
+        
+        cin >> letter;
+        cin >> position;
+        if (letter == 'G') {
+            G[gCount] = position;
+            if (position > highestG) highestG = position;
+            gCount++;
+        }
+        else {
+            L[lCount] = position;
+            if (position < lowestL) lowestL = position;
+            lCount++;
+        }
+    }
+    
+    sort(G, G + gCount);
+    sort(L, L + lCount);
+
+    if (highestG <= lowestL) {
+        cout << 0;
+        return 0;
+    }
+    
+    
+    
+    int minLiars = 1024;
+    
+    for(int bessie = 0; bessie < lCount; bessie++) { //start from lowestL
+        int currLiars = bessie;
+        for (int i = gCount - 1; i >= 0; i--) {//for any liars in greater than
+            if (G[i] > L[bessie]) {
+              _MINcurrLiars += 1;
+            }
+            else {
+              break;
+            }
+        }
+        if (currLiars < minLiars) minLiars = currLiars;
+    }
+    
+    cout << minLiars;
+
+    return 0;
+}
