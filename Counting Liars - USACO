@@ -1,0 +1,47 @@
+Problem Description:
+http://www.usaco.org/index.php?page=viewproblem2&cpid=1228
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+  int N;
+  string cows;
+  cin >> N >> cows;
+  int rotate = 0;
+
+  bool lookforbad = false;
+  bool lookforgood = false;
+
+  for (int i = 0; i < N; i += 2) {
+    if (lookforbad) {
+      if (cows[i] == 'H' && cows[i + 1] == 'G') { // this means it is a good pair
+        ++rotate; // to rotate the bad group (assuming all before it are bad too)
+        lookforgood = true;
+        lookforbad = false;
+      }
+      continue;
+    }
+
+    if (lookforgood) {
+      if (cows[i] == 'G' && cows[i + 1] == 'H') { // found a bad pair
+        ++rotate; // to account for switching the good before the bad pair
+        lookforgood = false;
+        lookforbad = true;
+      }
+      continue;
+    }
+    if (cows[i] == 'H' && cows[i + 1] == 'G')
+      lookforgood = true;
+    else if (cows[i] == 'G' && cows[i + 1] == 'H')
+      lookforbad = true;
+  }
+
+  if (lookforbad) {
+    ++rotate;
+  }
+  cout << rotate;
+  return 0;
+}
