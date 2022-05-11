@@ -1,0 +1,55 @@
+#include <iostream>
+#include <iomanip>
+
+/**
+Author: Arshia Aravinthan
+Purpose: This program is designed to display all numbers
+divisble by an inputted number beginning from 10 to a
+maximum of 500.
+**/
+
+using namespace std;
+
+int main() {
+    double total = 0, average = 0;
+    int highest, count = 0, divisor, num;
+    const int min = 10, max = 500;
+    num = min;
+    cout << "Enter a divisor from 2 to 10: ";
+    cin >> divisor;
+    while (divisor < 2 || divisor > 10) {
+        cout << "Input " << divisor <<
+        " is not in the range of 2 to 10" << endl;
+        cout << "Enter a divisor from 2 to 10: ";
+        cin >> divisor;
+    }
+
+    cout <<
+    "Enter the largest number to be generated. It must be in the range of 10-500: ";
+    cin >> highest;
+    while (highest < min || highest > max) {
+        cout << "Input " << highest <<
+        " is not in the range of 10 to 500" << endl;
+        cout <<
+        "Enter the largest number to be generated. It must be in the range of 10-500: ";
+        cin >> highest;
+    }
+
+    while (num <= highest) {
+        if (num % divisor == 0) {
+            cout << setw(6) << num;
+            ++count;
+            total += num;
+            
+            if (count % 15 == 0) {
+            cout << endl;
+        }
+        }
+        ++num;
+    }
+    cout << endl;
+    average = total / count;
+    cout << "Total sum: " << setw(12) << total << endl;
+    cout << "Count:     " << setw(12) << count << endl;
+    cout << "Average:   " << setw(12) << average << endl;
+}
