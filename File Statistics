@@ -1,0 +1,61 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+#include <climits>
+
+/***
+Author: Arshia Aravinthan
+Purpose: This program reads in file input of some numbers and displays a few of their statistics.
+***/
+
+using namespace std;
+
+int main()
+{
+    ifstream inputFile;
+    string filename;
+    string firstLine;
+    int num;
+    int higher = 0, lower = 0, highest = INT_MIN, lowest = INT_MAX, cnt = 0, total = 0;
+    cout << "This program reads a file of numbers, then calculates and displays some statistics of numbers.\n"
+    << "Enter a file name: ";
+    cin >> filename;
+
+    if (!inputFile) {
+        cout << "Error opening file.";
+        return 0;
+    }
+
+    inputFile.open(filename);
+
+    double average;
+    while (inputFile >> num) {
+        total += num;
+        cnt++;
+        if (num > highest) highest = num;
+        if (num < lowest) lowest = num;
+    }
+    average = total / cnt;
+    inputFile.close();
+
+    if (cnt == 0) {
+        cout << "This file does not contain any numbers.";
+        return 0;
+    }
+    inputFile.open(filename);
+    getline(inputFile, firstLine);
+    while (inputFile >> num) {
+        if (num > average) higher++;
+        if (num < average) lower++;
+    }
+    inputFile.close();
+    cout << setw(20) << "Smallest" << setw(20) << lowest << endl;
+    cout << setw(20) << "Largest" << setw(20) << highest << endl;
+    cout << setw(20) << "Average" << setw(20) << average << endl;
+
+    cout << "Numbers below the average" << setw(20) << lower << endl;
+    cout << "Numbers above the average" << setw(20) << higher << endl;
+
+    return 0;
+}
