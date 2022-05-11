@@ -1,0 +1,119 @@
+//This program simulates an online computer store.
+
+#include <iostream>
+#include <iomanip>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    double price = 0;
+    double HP8 = 819.99, Dell8 = 779.99, Lenovo8 = 739.99,
+    HP16 = 899.99, Dell16 = 869.99, Lenovo16 = 809.99;
+    
+    cout << "Welcome to CIS22A PC store. Here is the price list: " << endl;
+    cout << "Memory size/Brand" << setw(11) << "HP" << setw(16) << "Dell" << setw(16) << "Lenovo" << endl;
+    cout << setw(15) << "16 gigabytes" << setw(15) << HP16 << setw(15) << Dell16 << setw(15) << Lenovo16 << endl;
+    cout << setw(15) << "8 gigabytes" << setw(15) << HP8 << setw(15) << Dell8 << setw(15) << Lenovo8 << endl;
+    
+    string brand;
+    
+    cout << "\nEnter the brand name of the PC (D for Dell, H for HP, L for Lenovo, X to Exit): ";
+        getline(cin, brand);
+        if (brand != "D" && brand != "H" && brand != "L" && brand != "X") {
+            cout << "Invalid brand. Please enter D, H or L.";
+            return 0;
+        }
+        else if (brand == "X") {
+            cout << "Goodbye." << endl;
+        }
+    
+    while (brand != "X") {
+        int memory, quantity;
+        string brandName;
+        char shipping;
+        double price = 0;
+        cout << "\nEnter the memory size of the PC (8 or 16 gigabytes): ";
+        cin >> memory;
+        if (memory != 8 && memory != 16) {
+            cout << "Invalid memory size. Choose 8 or 16.";
+            return 0;
+        }
+        else if (memory == 8) {
+            if (brand == "H") {
+                price += HP8;
+                brandName = "HP";
+            }
+            else if (brand == "D") {
+                price += Dell8;
+                brandName = "Dell";
+            }
+            else if (brand == "L") {
+                price += Lenovo8;
+                brandName = "Lenovo";
+            }
+        }
+        else if (memory == 16) {
+            if (brand == "H") {
+                price += HP16;
+                brandName = "HP";
+            }
+            if (brand == "D") {
+                price += Dell16;
+                brandName = "Dell";
+            }
+            if (brand == "L") {
+                price += Lenovo16;
+                brandName = "Lenovo";
+            }
+        }
+        
+        cout << "\nEnter PC quantity to buy: ";
+        cin >> quantity;
+        if (quantity < 0) {
+            cout << "Invalid quantity.";
+            return 0;
+        }
+        else if (quantity > 10) {
+            cout << "Invalid quantity. It cannot exceed 10.";
+            return 0;
+        }
+        price = price * quantity;
+        
+        cout << fixed << setprecision(2);
+        cout << "The item price for (" << quantity << " x " << brandName << ") is     " << "$" << 
+        setw(15) << price << endl;
+        cout << "The sales tax is                       $" << setw(15) << 0.0975 * price << endl;
+        price += 0.0975 * price;
+        
+        cout << "\nEnter shipping method (S for Standard, E for Express): ";
+        cin >> shipping;
+        
+        if (shipping != 'S' && shipping != 'E') {
+            cout << "Invalid shipping method. Select S or E.";
+            return 0;
+        }
+        else if (shipping == 'S') {
+            cout << "Shipping cost is                   $       10.00" << endl;
+            price += 10;
+        }
+        else if (shipping == 'E') {
+            cout << "Shipping cost is                   $       20.00" << endl;
+            price += 20;
+        }
+        
+        cout << "\nYour total bill is                 $" << setw(12) << price << endl;
+        cout << "Thank you for your purchase." << endl;
+        cin.ignore();
+        cout << "\n\nEnter the brand name of the PC (D for Dell, H for HP, L for Lenovo, X to Exit): ";
+        getline(cin, brand);
+        if (brand != "D" && brand != "H" && brand != "L" && brand != "X") {
+            cout << "Invalid brand. Please enter D, H or L.";
+            return 0;
+        }
+        else if (brand == "X") {
+            cout << "Goodbye." << endl;
+        }
+    }
+}
