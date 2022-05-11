@@ -1,0 +1,71 @@
+#include <iostream>
+#include <cmath>
+
+/**
+Author: Arshia Aravinthan
+Purpose: This program solves a quadratic equation for real roots
+with given coefficients.
+**/
+
+using namespace std;
+
+int getRootCount(double& discriminant, double coefficients[]);
+
+void solveEquation(double discriminant, double coefficients[], double roots[]);
+
+
+int main()
+{
+    int const SIZE = 3;
+    double coefficients[SIZE];
+    double discriminant;
+    cout << "This program solves quadratic formulas\n";
+    cout << "Enter 3 coefficients separate by spaces: ";
+    cin >> coefficients[0] >> coefficients[1]  >> coefficients[2] ;
+
+    while (coefficients[0] != 0 || coefficients[1] != 0 || coefficients[2] != 0) {
+        if (coefficients[0]  == 0)
+            cout << "First coefficient cannot be 0.";
+        else
+        {
+            int rootCount = getRootCount(discriminant, coefficients);
+            if (rootCount == 0)
+                cout << "There is no root" << endl;
+            else
+            {
+                double roots[rootCount];
+                solveEquation(discriminant, coefficients,  roots);
+                if (rootCount == 1)
+                    cout << "There is one root: " << roots[0] << endl;
+                else
+                    cout << "There are 2 roots: " << roots[0] << "   " << roots[1] << endl;
+            }
+        }
+        
+        cout << "\nEnter 3 coefficients separate by spaces: ";
+        cin >> coefficients[0] >> coefficients[1]  >> coefficients[2] ;
+
+    }
+}
+
+//This function returns the number of roots for a quadratic equation
+int getRootCount(double& discriminant, double coefficients[]) {
+    discriminant = (pow(coefficients[1], 2)) - (4 * coefficients[0] * coefficients[2]);
+    if (discriminant < 0) {
+        return 0;
+    }
+    else if (discriminant == 0) {
+        return 1;
+    }
+    return 2;
+}
+
+//This program calculates the roots based on given coefficients and calculated discriminant
+void solveEquation(double discriminant, double coefficients[], double roots[]) {
+    if (discriminant == 0) {
+        roots[0] = -coefficients[1] / (2 * coefficients[0]);
+        return;
+    }
+    roots[0] = (-coefficients[1] + sqrt(discriminant))/(2 * coefficients[0]);
+    roots[1] = (-coefficients[1] - sqrt(discriminant))/(2 * coefficients[0]);
+}
