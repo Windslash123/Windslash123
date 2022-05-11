@@ -1,0 +1,70 @@
+Problem Description:
+https://codingcompetitions.withgoogle.com/kickstart/round/00000000008caa74/0000000000acee89
+
+Program:
+
+#include <iostream>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+void findFactors(int, vector <int>&);
+int palindrome(vector <int> factors);
+
+int main() {
+    int T, caseNum = 1;
+    cin >> T;
+    
+    while (T > 0) {
+        T--;
+        
+        int num;
+        cin >> num;
+        vector <int> factors;
+        findFactors(num, factors);
+        int palindromes = palindrome(factors);
+        
+        cout << "Case #" << caseNum << ": " 
+        << palindromes << endl;
+        caseNum++;
+    }
+
+}
+
+void findFactors(int num, vector <int> &factors) {
+    int factor = 1;
+    int rem;
+    while (pow(factor, 2) <= num) {
+        rem = num % factor;
+        if (rem == 0) {
+            factors.push_back(factor);
+            if (num / factor != factor) {
+              factors.push_back(num/factor);
+            }
+        }
+        ++factor;
+    }
+    
+}
+
+int palindrome(vector <int> factors) {
+    int count = 0;
+    for (int i = 0; i < factors.size(); i++) {
+        
+        int x = factors[i], y = 0;
+        if (x <= 9) {
+          count ++;
+          continue;
+        }
+      
+        while (x > 0) {
+            y = y * 10 + x % 10;
+            x = x / 10;
+        }
+        if (factors[i] == y) {
+            count ++;
+        }
+    }
+    return count;
+}
