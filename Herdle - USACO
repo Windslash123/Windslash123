@@ -1,0 +1,51 @@
+Program Description:
+http://www.usaco.org/index.php?page=viewproblem2&cpid=1179
+
+Program:
+
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int green = 0, yellow = 0;
+    vector <string> guess(3);
+    vector <string> ans(3);
+    bool used[3][3];
+    
+    for (int i = 0; i < 3; i++) cin >> ans[i];
+    for (int i = 0; i < 3; i++) cin >> guess[i];
+    
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {  //initializing boolean
+            used[i][j] = 0;
+        }
+    }
+    
+    for (int r = 0; r < 3; r++) { //row
+        for (int c = 0; c < 3; c++) { //column
+            if (guess[r][c] == ans[r][c]) {
+                if (used[r][c] == 1) yellow--; 
+                green++;
+                used[r][c] = 1;
+            }
+            else {
+                int flag = 0;
+                for(int r2 = 0; r2 < 3; r2++) {  //row guess
+                    for (int c2 = 0; c2 < 3; c2++) { //column guess
+                        if ((ans[r][c] == guess[r2][c2]) && (used[r2][c2] == 0) && (flag == 0)) {
+                            yellow++;
+                            flag = 1;
+                            used[r2][c2] = 1;
+                            break;
+                        }
+                }
+            } 
+        }
+    }
+}
+    cout << green << "\n" << yellow;
+}
