@@ -31,7 +31,7 @@ int main() {
         lookforgood = false;
         lookforbad = true;
       }
-      continue;
+      continue; 
     }
     if (cows[i] == 'H' && cows[i + 1] == 'G')
       lookforgood = true;
