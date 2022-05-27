@@ -14,12 +14,12 @@ int main() {
   cin >> N >> cows;
   int rotate = 0;
 
-  bool lookforbad = false;
-  bool lookforgood = false;
+  bool lookforbad = false; //bad are pairs in the wrong order
+  bool lookforgood = false; //good are pairs in the right order
 
   for (int i = 0; i < N; i += 2) {
     if (lookforbad) {
-      if (cows[i] == 'H' && cows[i + 1] == 'G') { // this means it is a good pair
+      if (cows[i] == 'H' && cows[i + 1] == 'G') { // found a good pair
         ++rotate; // to rotate the bad group (assuming all before it are bad too)
         lookforgood = true;
         lookforbad = false;
@@ -29,7 +29,7 @@ int main() {
 
     if (lookforgood) {
       if (cows[i] == 'G' && cows[i + 1] == 'H') { // found a bad pair
-        ++rotate; // to account for switching the good before the bad pair
+        ++rotate; // to account for switching the good pairs, so that entire length so far is bad
         lookforgood = false;
         lookforbad = true;
       }
@@ -44,6 +44,7 @@ int main() {
   if (lookforbad) {
     ++rotate;
   }
+  
   cout << rotate;
   return 0;
 }
