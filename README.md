@@ -1,3 +1,3 @@
 - 👋 Hi, I’m @Windslash123
-- 👀 I’m interested in computer science and reading 
-- 🌱 I’m currently learning C++ and training for USACO
+- 👀 I’m interested in computer science and crocheting 
+- 🌱 My main languages are C++ and Python
